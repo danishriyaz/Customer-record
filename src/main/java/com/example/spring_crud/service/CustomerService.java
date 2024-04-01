@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.example.spring_crud.utility.mapper.convertToEntity;
 
@@ -29,6 +30,7 @@ public class CustomerService {
 
     public Map<String, Object> createCustomer(CustomerDTO customerDTO) {
 
+        System.out.print("saving to db");
         try {
             Customer customerAlreadyExist = customerRepository.findByEmail(customerDTO.getEmail());
             if (customerAlreadyExist != null) {
@@ -53,6 +55,7 @@ public class CustomerService {
 
     @Transactional
     public List<Customer> getAllCustomers() {
+        System.out.print("fetching from db");
         List<Customer> customers = null;
         try {
             customers = customerRepository.findAll();
@@ -62,6 +65,19 @@ public class CustomerService {
             response.put("message", e.getMessage());
         }
         return customers;
+    }
+
+    @Transactional
+    public Optional<Customer> getCustomerByCustomerNumber(String customerNubmer) {
+        System.out.print("fetching from db");
+        Optional<Customer> customer = Optional.empty();
+        try {
+            customer = Optional.ofNullable(customerRepository.findByCustomerNumber(customerNubmer));
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", e.getMessage());
+        }
+        return customer;
     }
 
     @Transactional

@@ -4,14 +4,15 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
-@Component
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomerDTO {
 
 
@@ -23,6 +24,7 @@ public class CustomerDTO {
 
     @Email(message = "Email should in proper format")
     String email;
+
     @Size(min = 10, message = "Phone number must be 10 digits")
     @Pattern(regexp = "\\d{10}", message = "must contain numbers")
     String phoneNo;

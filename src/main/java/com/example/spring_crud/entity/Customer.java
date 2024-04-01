@@ -1,24 +1,24 @@
 package com.example.spring_crud.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Customer {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     int id;
 
-    private String customerNumber;
     private String name;
 
     @Column(name="email",unique = true)
     private String email;
-
+    private String customerNumber;
     private String phoneNo;
 
     public int getId() {
